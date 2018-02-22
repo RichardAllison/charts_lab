@@ -1,4 +1,4 @@
-const PieChart = function(container){
+const PieChart = function(text, series, container){
 
     
     const chart = new Highcharts.Chart({
@@ -7,36 +7,9 @@ const PieChart = function(container){
             renderTo: container
         },
         title: {
-            text: "Pokemon types I've caught"
+            text: text
         },
-        series: [
-            {
-                name: "Type",
-                data: [
-                    {
-                        name: "Fire",
-                        y: 52,
-                        color: "#ffac33" 
-                    },
-                    {
-                        name: "Water",
-                        y: 25,
-                        color: "#73b7ff",
-                        sliced: true
-                    },
-                    {
-                        name: "Grass",
-                        y: 1,
-                        color: "#00ba2f"
-                    },
-                    {
-                        name: "Electric",
-                        y: 22,
-                        color: "#f4eb42"
-                    }
-                ]
-            }
-        ]
+        series: series
     });
 
 }

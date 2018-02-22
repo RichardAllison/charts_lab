@@ -6,22 +6,51 @@ document.addEventListener("DOMContentLoaded", function(){
         console.log(this.value);
         container.innerText = "";
         if (this.value === "1") {
-            pieChart(container);
+            pokemonPieChart(container);
         } 
         else if (this.value === "2") {
-            languageChart(container);
+            languageBarChart(container);
         }
         else if (this.value === "3") {
-            regionsChart();
+            regionsBarChart();
         }
     })
 });
 
-const pieChart = function(container) {
-    new PieChart(container);
+const pokemonPieChart = function(container) {
+    const text = "Pokemon types I've caught"
+    const series = [
+    {
+        name: "Type",
+        data: [
+            {
+                name: "Fire",
+                y: 52,
+                color: "#ffac33" 
+            },
+            {
+                name: "Water",
+                y: 25,
+                color: "#73b7ff",
+                sliced: true
+            },
+            {
+                name: "Grass",
+                y: 1,
+                color: "#00ba2f"
+            },
+            {
+                name: "Electric",
+                y: 22,
+                color: "#f4eb42"
+            }
+        ]
+    }
+]
+    new PieChart(text, series, container);
 }
 
-const languageChart = function(container) {
+const languageBarChart = function(container) {
     const text = "Our Favourite Programming Languages";
             const series = [{
                 name: "Cohort 7",
@@ -35,12 +64,12 @@ const languageChart = function(container) {
             new ColumnChart(text, series, categories, container);
 }
 
-const regionsChart = function() {
-    const url = "https://restcountries.eu/rest/v2/all";
-    makeRequest(url, requestComplete);
+const regionsBarChart = function() {
+    makeRequest(requestComplete);
 }
 
-const makeRequest = function(url, callback){
+const makeRequest = function(callback){
+    const url = "https://restcountries.eu/rest/v2/all";
     const request = new XMLHttpRequest();
     request.open("GET", url);
     request.addEventListener("load", callback);
@@ -51,10 +80,10 @@ const requestComplete = function(){
     if(this.status !== 200) return;
     const jsonString = this.responseText; //This is a string
     const countries = JSON.parse(jsonString); //This parses the string into a js object
-    populateChart(countries);
+    populateRegionsBarChart(countries);
 }
 
-const populateChart = function(countries){
+const populateRegionsBarChart = function(countries){
     const container = document.getElementById("chart-display");
 
     const text = "Countries By Region";
