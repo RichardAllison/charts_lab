@@ -47,6 +47,9 @@ const populateChart = function(countries){
         }
     });
 
+    data[ "None" ] = data[ "" ];
+    delete data[ "" ];
+
     const values = Object.values(data);
     const categories = Object.keys(data);
 
