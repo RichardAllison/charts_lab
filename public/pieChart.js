@@ -1,6 +1,6 @@
-const PieChart = function(){
+const PieChart = function(container){
 
-    const container = document.getElementById("pie-chart");
+    
     const chart = new Highcharts.Chart({
         chart: {
             type: 'pie',

@@ -1,23 +1,44 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-    url = "https://restcountries.eu/rest/v2/all";
-
-    makeRequest(url, requestComplete);
-
-    new PieChart();
-    const text = "Our Favourite Programming Languages";
-    const series = [{
-        name: "Cohort 7",
-        data: [8, 12, 3, 1]
-    },
-    {
-       name: "Cohort 18",
-        data: [6, 10, 1, 1]
-    }];
-    const categories = ['JavaScript', 'Java', 'Ruby', 'Other'];
-    const languagesContainer = document.getElementById("languages-column-chart");
-    new ColumnChart(text, series, categories, languagesContainer);
+    const container = document.getElementById("chart-display");
+    const select = document.getElementById("charts-select");
+    select.addEventListener("change", function () {
+        console.log(this.value);
+        container.innerText = "";
+        if (this.value === "1") {
+            pieChart(container);
+        } 
+        else if (this.value === "2") {
+            languageChart(container);
+        }
+        else if (this.value === "3") {
+            regionsChart();
+        }
+    })
 });
+
+const pieChart = function(container) {
+    new PieChart(container);
+}
+
+const languageChart = function(container) {
+    const text = "Our Favourite Programming Languages";
+            const series = [{
+                name: "Cohort 7",
+                data: [8, 12, 3, 1]
+            },
+            {
+               name: "Cohort 18",
+                data: [6, 10, 1, 1]
+            }];
+            const categories = ["JavaScript", "Java", "Ruby", "Other"];
+            new ColumnChart(text, series, categories, container);
+}
+
+const regionsChart = function() {
+    const url = "https://restcountries.eu/rest/v2/all";
+    makeRequest(url, requestComplete);
+}
 
 const makeRequest = function(url, callback){
     const request = new XMLHttpRequest();
@@ -34,7 +55,7 @@ const requestComplete = function(){
 }
 
 const populateChart = function(countries){
-    const regionsContainer = document.getElementById("regions-column-chart");
+    const container = document.getElementById("chart-display");
 
     const text = "Countries By Region";
     let data = {};
@@ -57,6 +78,6 @@ const populateChart = function(countries){
         name: "Region",
         data: values
     }];
-    new ColumnChart(text, series, categories, regionsContainer);
+    new ColumnChart(text, series, categories, container);
 
 }
